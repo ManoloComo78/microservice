@@ -1,0 +1,46 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+.logs
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Mac ###
+.DS_Store
+/.idea/
+
+*product_*.gif
+*product_*.jpeg
+*product_*.jpg
+*product_*.png
+*brand_*.gif
+*brand_*.jpg
+*brand_*.jpeg
+*brand_*.png
+*user_*.jpg
+!product_AA-ALO1PIC-c*
+!user_avatarx*
+!brand_2g-pet-food*
+*.ini
+*.Ink
+
