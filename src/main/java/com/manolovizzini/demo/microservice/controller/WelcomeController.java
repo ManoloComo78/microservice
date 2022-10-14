@@ -14,24 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0-SNAPSHOT
  * <p>
  */
-@RestController
+@Controller
 public class WelcomeController {
 
-    @Autowired
     private final UserService userService;
 
+    @Autowired
     public WelcomeController(UserService userService) {
         this.userService = userService;
     }
 
-//    @GetMapping("/")
-//    public String viewHomePage(Model model) {
-//        //model.addAttribute("users", userService.findAll());
-//        return "welcome";
-//    }
-
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome() {
-        return "welcome";
+    @RequestMapping("/")
+    public String viewHomePage(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "index";
     }
 }
