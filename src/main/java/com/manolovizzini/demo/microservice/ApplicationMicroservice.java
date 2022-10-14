@@ -35,14 +35,14 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             repository.save(new User("Node"));
             repository.save(new User("Python"));
 
-            System.out.println("\nfindAll()");
-            repository.findAll().forEach(x -> System.out.println(x.getUsername()));
+            logger.info("findAll()");
+            repository.findAll().forEach(x -> logger.info(x.getUsername()));
 
-            System.out.println("\nfindById(1L)");
-            repository.findById(1l).ifPresent(x -> System.out.println(x.getUsername()));
+            logger.info("findById(1L)");
+            repository.findById(1l).ifPresent(x -> logger.info(x.getUsername()));
 
-//        System.out.println("\nfindByName('Node')");
-//        repository.findByUsername("Node").forEach(x -> System.out.println(x));
+//        logger.info("findByName('Node')");
+//        repository.findByUsername("Node").forEach(x -> logger.info(x));
         };
     }
 
