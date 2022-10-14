@@ -17,6 +17,8 @@ public interface UserService {
 
     User getByUsername(String username) throws Exception;
 
+    User getByNationality(String nationality) throws Exception;
+
     User save(User user) throws Exception;
 
     Iterable<User> findAll();

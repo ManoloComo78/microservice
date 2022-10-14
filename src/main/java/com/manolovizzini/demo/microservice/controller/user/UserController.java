@@ -42,6 +42,11 @@ public class UserController {
         return userService.getByUsername(username);
     }
 
+    @GetMapping("/nationality/{nationality}")
+    public User retrieveByNationality(@PathVariable String nationality) throws Exception {
+        return userService.getByNationality(nationality);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         userService.deleteById(id);

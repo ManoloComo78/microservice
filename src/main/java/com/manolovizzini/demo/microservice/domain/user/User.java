@@ -33,6 +33,9 @@ public class User extends BaseEntityActiveablePositionableEditable {
     private String lastname;
 
     @Column(nullable = false)
+    private String nationality;
+
+    @Column(nullable = false)
     private LocalDate birthdate = LocalDate.now();
 
     public User() {
@@ -41,14 +44,14 @@ public class User extends BaseEntityActiveablePositionableEditable {
 
     public User(String username) {
         this.username = username;
+        this.nationality = "Italian";
         this.password = "sa";
     }
 
-    public User(String username, String password) {
+    public User(String username, String nationality) {
         this.username = username;
-        this.password = password;
+        this.nationality = nationality;
+        this.password = "sa";
     }
-
-
 }
 

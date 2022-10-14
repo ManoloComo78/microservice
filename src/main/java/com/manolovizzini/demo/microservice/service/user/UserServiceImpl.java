@@ -47,6 +47,12 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
     }
 
     @Override
+    public User getByNationality(String nationality) throws Exception {
+        String finalNationality = nationality;
+        return userRepository.findByNationality(nationality).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND, "User Not Found with nationality -> " + finalNationality));
+    }
+
+    @Override
     public Long count() {
         return userRepository.count();
     }
