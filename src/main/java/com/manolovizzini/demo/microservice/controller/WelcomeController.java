@@ -26,7 +26,10 @@ public class WelcomeController {
 
     @RequestMapping("/")
     public String viewHomePage(Model model) {
-        model.addAttribute("title", "Microservice: TODO");
+        String titleEntities = "Users";
+        String title = "Microservice: "+titleEntities;
+        model.addAttribute("title", title);
+        model.addAttribute("titleEntities", titleEntities);
         model.addAttribute("users", userService.findAll());
         return "index";
     }

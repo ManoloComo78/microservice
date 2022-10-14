@@ -17,25 +17,15 @@
 
 <main role="main" class="container">
 
-    <div th:switch="${users}" class="row flex-lg-nowrap">
+    <div class="row flex-lg-nowrap">
 
-        <div  class="col">
-            <div class="e-tabs mb-3 px-3">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" href="#">Users</a></li>
-                </ul>
-            </div>
-
-            <div th:case="null" class="row flex-lg-nowrap">
-                No users yet!
-            </div>
-
-            <div th:case="*" class="row flex-lg-nowrap">
+        <div class="col">
+            <div class="row flex-lg-nowrap">
                 <div class="col mb-3">
                     <div class="e-panel card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h6 class="mr-2"><span>Users</span><small class="px-1">Be a wise leader</small></h6>
+                                <h6 class="mr-2"><span th:text="${titleEntities}"></span></h6>
                             </div>
                             <div class="e-table">
                                 <div class="table-responsive table-lg mt-3">
@@ -63,7 +53,7 @@
                                                     <label class="custom-control-label" for="item-1"></label>
                                                 </div>
                                             </td>
-                                            <td th:text="${user.nationality}" class="align-middle text-center"></td>
+                                            <td th:text="${user.nationality}" class="text-nowrap align-middle"></td>
                                             <td th:text="${user.username}" class="text-nowrap align-middle"></td>
                                             <td class="text-nowrap align-middle"><span th:text="${user.birthdate}"></span></td>
                                             <td class="text-center align-middle"><i class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"></i></td>
