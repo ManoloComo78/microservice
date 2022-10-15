@@ -1,6 +1,8 @@
 package com.manolovizzini.demo.microservice.service.user;
 
 import com.manolovizzini.demo.microservice.domain.user.User;
+import com.manolovizzini.demo.microservice.dto.user.UserDTO;
+import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -33,4 +35,7 @@ public interface UserService {
 
     Optional<User> findByUsername(String userEmail);
 
+    Page<UserDTO> findAllDto(Predicate predicate, Pageable pageable);
+
+    Page<User> findAll(Predicate predicate, Pageable pageable);
 }

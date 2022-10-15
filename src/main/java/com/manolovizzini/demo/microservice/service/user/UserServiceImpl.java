@@ -2,8 +2,11 @@ package com.manolovizzini.demo.microservice.service.user;
 
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
 import com.manolovizzini.demo.microservice.domain.user.User;
+import com.manolovizzini.demo.microservice.dto.user.UserDTO;
 import com.manolovizzini.demo.microservice.exceptions.NotFoundException;
 import com.manolovizzini.demo.microservice.service.CommonServiceImpl;
+import com.manolovizzini.demo.microservice.service.DtoConverterService;
+import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,8 +24,11 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private final DtoConverterService dtoConverterService;
+
+    public UserServiceImpl(UserRepository userRepository, DtoConverterService dtoConverterService) {
         this.userRepository = userRepository;
+        this.dtoConverterService = dtoConverterService;
     }
 
     @Override
@@ -77,4 +83,14 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
         return userRepository.findByUsername(userEmail);
     }
 
+    @Override
+    public Page<UserDTO> findAllDto(Predicate predicate, Pageable pageable) {
+        Page<User> userBasicDetails = findAll(predicate, pageable);
+        return userBasicDetails.map(userDto -> dtoConverterService.convertToUserDTO(userDto));//TODO utilizza la libreria per naming
+    }
+
+    @Override
+    public Page<User> findAll(Predicate predicate, Pageable pageable) {
+        return userRepository.findAll(predicate, pageable);
+    }
 }

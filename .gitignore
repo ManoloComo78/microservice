@@ -28,19 +28,6 @@
 ### Mac ###
 .DS_Store
 /.idea/
-
-*product_*.gif
-*product_*.jpeg
-*product_*.jpg
-*product_*.png
-*brand_*.gif
-*brand_*.jpg
-*brand_*.jpeg
-*brand_*.png
-*user_*.jpg
-!product_AA-ALO1PIC-c*
-!user_avatarx*
-!brand_2g-pet-food*
 *.ini
 *.Ink
 
