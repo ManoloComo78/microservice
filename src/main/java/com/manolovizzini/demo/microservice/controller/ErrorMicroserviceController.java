@@ -36,7 +36,6 @@ public class ErrorMicroserviceController implements ErrorController {
         model.addAttribute("statusCode", statusCode);
         model.addAttribute("message", message);
         logger.error(message);
-        logger.error("cicco");
         return "error";
     }
 
