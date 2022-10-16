@@ -1,13 +1,14 @@
 package com.manolovizzini.demo.microservice.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manolovizzini.demo.microservice.domain.BaseEntityActiveablePositionableEditable;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author mviz - 13/10/2022
@@ -38,20 +39,31 @@ public class User extends BaseEntityActiveablePositionableEditable {
     @Column(nullable = false)
     private LocalDate birthdate = LocalDate.now();
 
+    private Set<Role> roles = new HashSet<>();
+
     public User() {
 
     }
 
-    public User(String username) {
+    public User(String username, Role role) {
         this.username = username;
         this.nationality = "Italian";
         this.password = "sa";
+        this.roles.add(role);
     }
 
-    public User(String username, String nationality) {
+    public User(String username, String nationality, Role role) {
         this.username = username;
         this.nationality = nationality;
         this.password = "sa";
+        this.roles.add(role);
+    }
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
     }
 }
 

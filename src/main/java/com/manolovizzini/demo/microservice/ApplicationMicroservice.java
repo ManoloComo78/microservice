@@ -1,6 +1,9 @@
 package com.manolovizzini.demo.microservice;
 
+import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
+import com.manolovizzini.demo.microservice.domain.user.Role;
+import com.manolovizzini.demo.microservice.domain.user.RoleName;
 import com.manolovizzini.demo.microservice.domain.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,22 +32,26 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     }
 
     @Bean
-    CommandLineRunner runner(UserRepository repository) {
+    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository) {
         return args -> {
-            repository.save(new User("Java"));
-            repository.save(new User("Node"));
-            repository.save(new User("Python"));
+            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+
+            Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+                    .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+
+            userRepository.save(new User("Pippo", userRole));
+            userRepository.save(new User("Pluto", userRole));
+            User paperino = new User("Paperino", userRole);
+            paperino.getRoles().add(adminRole);
+            userRepository.save(paperino);
 
             logger.info("findAll()");
-            repository.findAll().forEach(x -> logger.info(x.getUsername()));
+            userRepository.findAll().forEach(x -> logger.info(x.getUsername()));
 
             logger.info("findById(1L)");
-            repository.findById(1l).ifPresent(x -> logger.info(x.getUsername()));
-
-//        logger.info("findByName('Node')");
-//        repository.findByUsername("Node").forEach(x -> logger.info(x));
+            userRepository.findById(1l).ifPresent(x -> logger.info(x.getUsername()));
         };
     }
-
 
 }
