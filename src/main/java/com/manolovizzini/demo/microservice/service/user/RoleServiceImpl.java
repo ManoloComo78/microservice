@@ -3,6 +3,8 @@ package com.manolovizzini.demo.microservice.service.user;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,5 +31,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role save(Role role) {
         return roleRepository.save(role);
+    }
+
+    @Override
+    public Page<Role> findAll(Pageable pageable) {
+        return roleRepository.findAll(pageable);
     }
 }

@@ -1,5 +1,6 @@
 package com.manolovizzini.demo.microservice;
 
+
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
 import com.manolovizzini.demo.microservice.domain.user.Role;
@@ -34,11 +35,17 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     @Bean
     CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository) {
         return args -> {
-            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+            Role userRole = new Role(RoleName.ROLE_USER, 10);
+            roleRepository.save(userRole);
+
+            Role adminRole = new Role(RoleName.ROLE_ADMIN, 1);
+            roleRepository.save(adminRole);
+
+            userRole = roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 
-            Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                    .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+            adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+                    .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
 
             userRepository.save(new User("Pippo", userRole));
             userRepository.save(new User("Pluto", userRole));

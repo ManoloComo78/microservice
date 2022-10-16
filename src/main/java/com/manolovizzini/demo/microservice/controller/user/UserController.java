@@ -1,6 +1,7 @@
 package com.manolovizzini.demo.microservice.controller.user;
 
 import com.manolovizzini.demo.microservice.domain.user.User;
+import com.manolovizzini.demo.microservice.dto.UserMapper;
 import com.manolovizzini.demo.microservice.dto.user.UserDTO;
 import com.manolovizzini.demo.microservice.service.user.UserService;
 import com.querydsl.core.types.Predicate;
@@ -26,8 +27,12 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserMapper userMapper;
+
+
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @RequestMapping("")
@@ -36,8 +41,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User retrieveById(@PathVariable long id) throws Exception {
-        return userService.getById(id);
+    public UserDTO retrieveById(@PathVariable long id) throws Exception {
+        return userMapper.userToUserDTO(userService.getById(id));
     }
 
     @GetMapping("/username/{username}")
@@ -75,8 +80,8 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/search")
-    public Page<UserDTO> search(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageRequest) {
-        return userService.findAllDto(predicate, pageRequest);
-    }
+//    @GetMapping(value = "/search")
+//    public Page<UserDTO> search(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
+//        return userMapper.usersToUserDTO(userService.findAll(predicate, pageable));
+//    }
 }

@@ -35,7 +35,5 @@ public interface UserService {
 
     Optional<User> findByUsername(String userEmail);
 
-    Page<UserDTO> findAllDto(Predicate predicate, Pageable pageable);
-
     Page<User> findAll(Predicate predicate, Pageable pageable);
 }

@@ -1,6 +1,6 @@
 package com.manolovizzini.demo.microservice.dto.user;
 
-import com.manolovizzini.demo.microservice.dto.LabelDTO;
+import com.manolovizzini.demo.microservice.dto.BaseDTOActiveablePositionableEditable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UserDTO extends LabelDTO {
-    public UserDTO(Long id, String label) {
-        super(id, label);
-    }
+public class UserDTO extends BaseDTOActiveablePositionableEditable {
+    private String username;
+    private String nationality;
 }
