@@ -36,8 +36,8 @@ public class UserController {
     }
 
     @RequestMapping("")
-    public Page<User> findAll(Pageable pageRequest) {
-        return userService.findAll(pageRequest);
+    public Page<UserDTO> findAll(Pageable pageRequest) {
+        return userService.findAll(pageRequest).map(userMapper::userToUserDTO);
     }
 
     @GetMapping("/{id}")
@@ -46,13 +46,13 @@ public class UserController {
     }
 
     @GetMapping("/username/{username}")
-    public User retrieveByUsername(@PathVariable String username) throws Exception {
-        return userService.getByUsername(username);
+    public UserDTO retrieveByUsername(@PathVariable String username) throws Exception {
+        return userMapper.userToUserDTO(userService.getByUsername(username));
     }
 
     @GetMapping("/nationality/{nationality}")
-    public User retrieveByNationality(@PathVariable String nationality) throws Exception {
-        return userService.getByNationality(nationality);
+    public UserDTO retrieveByNationality(@PathVariable String nationality) throws Exception {
+        return userMapper.userToUserDTO(userService.getByNationality(nationality));
     }
 
     @DeleteMapping("/{id}")
@@ -82,6 +82,6 @@ public class UserController {
 
 //    @GetMapping(value = "/search")
 //    public Page<UserDTO> search(@QuerydslPredicate(root = User.class) Predicate predicate, Pageable pageable) {
-//        return userMapper.usersToUserDTO(userService.findAll(predicate, pageable));
+//        return userService.findAll(predicate, pageable).map(userMapper::userToUserDTO);
 //    }
 }

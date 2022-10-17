@@ -6,7 +6,6 @@ import com.manolovizzini.demo.microservice.dto.user.RoleDTO;
 import com.manolovizzini.demo.microservice.dto.user.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.springframework.data.domain.Page;
 
 /**
  * @author mviz - 15/10/2022
@@ -20,11 +19,6 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     UserDTO userToUserDTO(User user);
-//    Page<UserDTO> usersToUserDTO(Page<User> users);
-//    User userDTOToUser(UserDTO userDTO);
 
     RoleDTO roleToRoleDTO(Role role);
-
-
-
 }
