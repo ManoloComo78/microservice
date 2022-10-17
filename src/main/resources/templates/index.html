@@ -33,31 +33,25 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th class="align-top">
-                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-                                                    <input type="checkbox" class="custom-control-input" id="all-items">
-                                                    <label class="custom-control-label" for="all-items"></label>
-                                                </div>
-                                            </th>
+                                            <th class="align-top">rest</th>
                                             <th>id</th>
                                             <th class="max-width">username</th>
                                             <th>firstname</th>
                                             <th>lastname</th>
                                             <th>nationality</th>
-                                            <th>roleName</th>
+                                            <th>role</th>
                                             <th>lastAccess</th>
                                             <th>birthdate</th>
-                                            <th></th>
-                                            <th>Actions</th>
+                                            <th>active</th>
+                                            <th>actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="user : ${users}">
                                             <td class="align-middle">
-                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                    <input type="checkbox" class="custom-control-input" id="item-1">
-                                                    <label class="custom-control-label" for="item-1"></label>
-                                                </div>
+                                                <a th:href="@{'/users/' + ${user.id}}" target="_blank">
+                                                <i class="fa fa-fw text-secondary cursor-pointer fa-signal"></i>
+                                                </a>
                                             </td>
                                             <td th:text="${user.id}" class="text-nowrap align-middle"></td>
                                             <td th:text="${user.username}" class="text-nowrap align-middle"></td>
