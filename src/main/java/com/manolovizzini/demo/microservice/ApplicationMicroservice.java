@@ -72,6 +72,7 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             User userAdmin = userRepository.findAll().iterator().next();
             userAdmin.getRoles().add(adminRole);
             userAdmin.getAccesses().add(accessOld);
+            userAdmin.setActive(false);
             userRepository.save(userAdmin);
 
             logger.info("Users added:"+userRepository.findAll().spliterator().estimateSize());
