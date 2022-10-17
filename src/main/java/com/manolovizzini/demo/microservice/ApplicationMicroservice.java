@@ -1,6 +1,7 @@
 package com.manolovizzini.demo.microservice;
 
 
+import com.github.javafaker.Faker;
 import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
@@ -19,6 +20,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Locale;
+import java.util.Random;
 
 /**
  * @author mviz - 13/10/2022
@@ -57,19 +61,36 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
 
-            userRepository.save(new User("Pippo", userRole, accessNow));
-            userRepository.save(new User("Pluto", userRole, accessNow));
-            User paperino = new User("Paperino", userRole, accessNow);
-            paperino.getRoles().add(adminRole);
-            paperino.getAccesses().add(accessOld);
-            userRepository.save(paperino);
+            int counter = 5;//TODO dinamici
+            String language = "it-IT";//TODO dinamici
+            Faker randomFaker = new Faker(new Locale(language), new Random(counter));
+            for (int i = 0; i < counter; i++) {
+                userRepository.save(generateUser(randomFaker, language, counter, userRole, accessNow));
+            }
 
-            logger.info("findAll()");
-            userRepository.findAll().forEach(x -> logger.info(x.getUsername()));
+            User userAdmin = userRepository.findAll().iterator().next();
+            userAdmin.getRoles().add(adminRole);
+            userAdmin.getAccesses().add(accessOld);
+            userRepository.save(userAdmin);
 
-            logger.info("findById(1L)");
-            userRepository.findById(1l).ifPresent(x -> logger.info(x.getUsername()));
+            logger.info("Users added:"+userRepository.findAll().spliterator().estimateSize());
+            logger.info("Language:"+language);
         };
+    }
+
+    public User generateUser(Faker randomFaker, String language, int counter, Role role, Access accessNow) {
+        User user = new User();
+        user.setUsername(randomFaker.name().username());
+        user.setPassword("sa");
+        user.setFirstname(randomFaker.name().firstName());
+        user.setLastname(randomFaker.name().lastName());
+        user.setNationality(randomFaker.nation().nationality());
+        user.setBirthdate(randomFaker.date().birthday().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate());
+        user.getRoles().add(role);
+        user.getAccesses().add(accessNow);
+        return user;
     }
 
 }
