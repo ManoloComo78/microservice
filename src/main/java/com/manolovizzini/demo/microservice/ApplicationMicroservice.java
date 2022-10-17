@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 public class ApplicationMicroservice extends SpringBootServletInitializer {
 
     private static final Logger logger = LoggerFactory.getLogger(ApplicationMicroservice.class);
+    public final static String dateLocalePattern = "dd/MM/yyyy";
 
     public static void main(String[] args) {
         SpringApplication.run(ApplicationMicroservice.class, args);

@@ -1,5 +1,6 @@
 package com.manolovizzini.demo.microservice.dto;
 
+import com.manolovizzini.demo.microservice.ApplicationMicroservice;
 import com.manolovizzini.demo.microservice.domain.user.Access;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
@@ -30,7 +31,7 @@ public class UserMapperUnitTest {
 
 
         UserDTO userDto = UserMapper.INSTANCE.userToUserDTO(user);
-        String formattedDate =  DateTimeFormatter.ofPattern(DateMapper.pattern).format(user.getAccesses().iterator().next().getDateTime());
+        String formattedDate =  DateTimeFormatter.ofPattern(ApplicationMicroservice.dateLocalePattern).format(user.getAccesses().iterator().next().getDateTime());
 
         assertEquals(userDto.getId(), user.getId());
         assertEquals(userDto.getUsername(), user.getUsername());

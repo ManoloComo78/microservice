@@ -1,5 +1,6 @@
 package com.manolovizzini.demo.microservice.dto;
 
+import com.manolovizzini.demo.microservice.ApplicationMicroservice;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.User;
 import com.manolovizzini.demo.microservice.dto.user.RoleDTO;
@@ -32,6 +33,6 @@ public interface UserMapper {
 
     default String getStringDate(User user) {
         LocalDateTime date = user.getAccesses().iterator().next().getDateTime();
-        return date != null ? DateTimeFormatter.ofPattern("dd/MM/yyyy").format(date) : null;
+        return date != null ? DateTimeFormatter.ofPattern(ApplicationMicroservice.dateLocalePattern).format(date) : null;
     }
 }
