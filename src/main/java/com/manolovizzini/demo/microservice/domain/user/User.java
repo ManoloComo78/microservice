@@ -41,29 +41,40 @@ public class User extends BaseEntityActiveablePositionableEditable {
 
     private Set<Role> roles = new HashSet<>();
 
+    private Set<Access> accesses = new HashSet<>();
+
     public User() {
 
     }
 
-    public User(String username, Role role) {
+    public User(String username, Role role, Access access) {
         this.username = username;
         this.nationality = "Italian";
         this.password = "sa";
         this.roles.add(role);
+        this.accesses.add(access);
     }
 
-    public User(String username, String nationality, Role role) {
+    public User(String username, String nationality, Role role, Access access) {
         this.username = username;
         this.nationality = nationality;
         this.password = "sa";
         this.roles.add(role);
+        this.accesses.add(access);
     }
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "t_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "t_user_access", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "access_id"))
+    public Set<Access> getAccesses() {
+        return accesses;
     }
 }
 

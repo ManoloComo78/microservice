@@ -1,8 +1,10 @@
 package com.manolovizzini.demo.microservice;
 
 
+import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
+import com.manolovizzini.demo.microservice.domain.user.Access;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
 import com.manolovizzini.demo.microservice.domain.user.User;
@@ -15,6 +17,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import java.time.LocalDateTime;
 
 /**
  * @author mviz - 13/10/2022
@@ -33,8 +37,13 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     }
 
     @Bean
-    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository) {
+    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository) {
         return args -> {
+            Access accessNow = new Access(LocalDateTime.now(), "0.0.0.0");
+            accessNow = accessRepository.save(accessNow);
+            Access accessOld = new Access(LocalDateTime.of(2017, 2, 13, 15, 56), "0.0.0.0");
+            accessOld = accessRepository.save(accessOld);
+
             Role userRole = new Role(RoleName.ROLE_USER, 10);
             roleRepository.save(userRole);
 
@@ -47,10 +56,11 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
 
-            userRepository.save(new User("Pippo", userRole));
-            userRepository.save(new User("Pluto", userRole));
-            User paperino = new User("Paperino", userRole);
+            userRepository.save(new User("Pippo", userRole, accessNow));
+            userRepository.save(new User("Pluto", userRole, accessNow));
+            User paperino = new User("Paperino", userRole, accessNow);
             paperino.getRoles().add(adminRole);
+            paperino.getAccesses().add(accessOld);
             userRepository.save(paperino);
 
             logger.info("findAll()");
