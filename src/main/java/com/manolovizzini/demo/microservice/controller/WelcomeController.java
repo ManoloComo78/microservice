@@ -1,16 +1,11 @@
 package com.manolovizzini.demo.microservice.controller;
 
-import com.manolovizzini.demo.microservice.dto.UserMapper;
-import com.manolovizzini.demo.microservice.dto.user.UserDTO;
+import com.manolovizzini.demo.microservice.dto.user.UserMapper;
 import com.manolovizzini.demo.microservice.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author mviz - 13/10/2022

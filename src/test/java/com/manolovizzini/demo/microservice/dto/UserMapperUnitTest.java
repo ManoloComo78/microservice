@@ -6,6 +6,7 @@ import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
 import com.manolovizzini.demo.microservice.domain.user.User;
 import com.manolovizzini.demo.microservice.dto.user.UserDTO;
+import com.manolovizzini.demo.microservice.dto.user.UserMapper;
 import org.junit.Test;
 
 import java.time.LocalDate;

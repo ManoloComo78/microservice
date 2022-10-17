@@ -1,8 +1,7 @@
-package com.manolovizzini.demo.microservice.dto;
+package com.manolovizzini.demo.microservice.dto.user;
 
 import com.manolovizzini.demo.microservice.ApplicationMicroservice;
 import com.manolovizzini.demo.microservice.domain.user.User;
-import com.manolovizzini.demo.microservice.dto.user.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -11,7 +10,6 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * @author mviz - 15/10/2022

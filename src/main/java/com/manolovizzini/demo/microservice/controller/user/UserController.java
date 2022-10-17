@@ -1,13 +1,11 @@
 package com.manolovizzini.demo.microservice.controller.user;
 
 import com.manolovizzini.demo.microservice.domain.user.User;
-import com.manolovizzini.demo.microservice.dto.UserMapper;
+import com.manolovizzini.demo.microservice.dto.user.UserMapper;
 import com.manolovizzini.demo.microservice.dto.user.UserDTO;
 import com.manolovizzini.demo.microservice.service.user.UserService;
-import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

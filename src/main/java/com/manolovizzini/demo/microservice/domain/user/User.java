@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.manolovizzini.demo.microservice.domain.BaseEntityActiveablePositionableEditable;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -59,6 +61,22 @@ public class User extends BaseEntityActiveablePositionableEditable {
     @JoinTable(name = "t_user_access", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "access_id"))
     public Set<Access> getAccesses() {
         return accesses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return new EqualsBuilder().appendSuper(super.equals(o)).append(getUsername(), user.getUsername()).append(getPassword(), user.getPassword()).append(getFirstname(), user.getFirstname()).append(getLastname(), user.getLastname()).append(getNationality(), user.getNationality()).append(getBirthdate(), user.getBirthdate()).append(getRoles(), user.getRoles()).append(getAccesses(), user.getAccesses()).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(getUsername()).append(getPassword()).append(getFirstname()).append(getLastname()).append(getNationality()).append(getBirthdate()).append(getRoles()).append(getAccesses()).toHashCode();
     }
 }
 

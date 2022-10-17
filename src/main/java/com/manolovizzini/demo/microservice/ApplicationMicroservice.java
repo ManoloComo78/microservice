@@ -2,9 +2,11 @@ package com.manolovizzini.demo.microservice;
 
 
 import com.github.javafaker.Faker;
+import com.manolovizzini.demo.microservice.dao.system.ParameterRepository;
 import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
+import com.manolovizzini.demo.microservice.domain.system.Parameter;
 import com.manolovizzini.demo.microservice.domain.user.Access;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
@@ -43,8 +45,11 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     }
 
     @Bean
-    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository) {
+    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository, ParameterRepository parameterRepository) {
         return args -> {
+            Parameter parameter = new Parameter();
+            parameterRepository.save(parameter);
+
             Access accessNow = new Access(LocalDateTime.now(), "0.0.0.0");
             accessNow = accessRepository.save(accessNow);
             Access accessOld = new Access(LocalDateTime.of(2017, 2, 13, 15, 56), "0.0.0.0");
