@@ -13,12 +13,12 @@
 </head>
 <body>
 <div th:replace="fragments/page-header :: header"></div>
-<br>
-<br>
-<div th:text="${statusCode}">Status code: <b></b></div>
-<br>
-<br>
-<div th:text="${message}">Exception Message: <b></b></div>
+<main role="main" id="demo">
+    <div th:text="${statusCode}">Status code: <b></b></div>
+    <br>
+    <br>
+    <div th:text="${message}">Exception Message: <b></b></div>
+</main>
 <div th:replace="fragments/page-footer :: footer"></div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

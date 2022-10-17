@@ -32,3 +32,7 @@ code {
 .footer {
     text-align: center;
 }
+
+main#demo {
+    margin-top:70px;
+}

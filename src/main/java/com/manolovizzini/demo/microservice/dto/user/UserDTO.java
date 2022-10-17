@@ -13,7 +13,10 @@ import lombok.Setter;
 @Setter
 public class UserDTO extends BaseDTOActiveablePositionableEditable {
     private String username;
+    private String firstname;
+    private String lastname;
     private String nationality;
     private RoleName roleName;
     private String lastAccess;
+    private String birthdate;
 }
