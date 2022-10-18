@@ -14,13 +14,13 @@ public class SystemMapperUnitTest {
 
         Parameter parameter = new Parameter();
         parameter.setId(1L);
-        parameter.setLanguageCode("it-IT");
+        parameter.setLanguageTag("it-IT");
         parameter.setCounter(110);
 
         ParameterDTO parameterDto = SystemMapper.INSTANCE.parameterToParameterDTO(parameter);
 
         assertEquals(parameterDto.getId(), parameter.getId());
-        assertEquals(parameterDto.getLanguageCode(), parameter.getLanguageCode());
+        assertEquals(parameterDto.getLanguageTag(), parameter.getLanguageTag());
         assertEquals(parameterDto.getCounter(), parameter.getCounter());
     }
 }

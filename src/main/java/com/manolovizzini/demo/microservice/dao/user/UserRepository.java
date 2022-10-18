@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface UserRepository extends BaseEntityPositionableEditableRepository<User> {
 
     Optional<User> findByUsername(String username);
-    Optional<User> findByNationality(String nationality);
+    Optional<User> findByCountry(String country);
 }

@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class Parameter  extends BaseEntityActiveablePositionableEditable {
 
     @Column(unique = true, nullable = false)
-    private String languageCode;
+    private String languageTag;
 
     @Column(nullable = false)
     private int counter = 5;
@@ -32,11 +32,11 @@ public class Parameter  extends BaseEntityActiveablePositionableEditable {
 
         Parameter parameter = (Parameter) o;
 
-        return new EqualsBuilder().appendSuper(super.equals(o)).append(getCounter(), parameter.getCounter()).append(getLanguageCode(), parameter.getLanguageCode()).isEquals();
+        return new EqualsBuilder().appendSuper(super.equals(o)).append(getCounter(), parameter.getCounter()).append(getLanguageTag(), parameter.getLanguageTag()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(getLanguageCode()).append(getCounter()).toHashCode();
+        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(getLanguageTag()).append(getCounter()).toHashCode();
     }
 }

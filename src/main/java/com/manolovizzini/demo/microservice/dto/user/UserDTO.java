@@ -14,7 +14,7 @@ public class UserDTO extends BaseDTOActiveablePositionableEditable {
     private String username;
     private String firstname;
     private String lastname;
-    private String nationality;
+    private String country;
     private String roles;
     private String lastAccess;
     private String birthdate;

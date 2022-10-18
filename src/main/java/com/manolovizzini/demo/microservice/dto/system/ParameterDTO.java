@@ -11,6 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ParameterDTO extends BaseDTOActiveablePositionableEditable {
-    private String languageCode;
+    private String languageTag;
     private int counter;
 }

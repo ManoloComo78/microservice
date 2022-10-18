@@ -50,10 +50,10 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<User> reload(String languageCode, int counter) {
+    public Iterable<User> reload(String languageTag, int counter) {
         RandomUtils randomUtils = new RandomUtils();
         Parameter parameter = parameterRepository.findAll().iterator().next();
-        parameter.setLanguageCode(languageCode);
+        parameter.setLanguageTag(languageTag);
         parameter.setCounter(counter);
 
         userRepository.deleteAll();
@@ -73,9 +73,9 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
     }
 
     @Override
-    public User getByNationality(String nationality) throws Exception {
-        String finalNationality = nationality;
-        return userRepository.findByNationality(nationality).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND, "User Not Found with nationality -> " + finalNationality));
+    public User getByCountry(String country) throws Exception {
+        String finalCountry = country;
+        return userRepository.findByCountry(country).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND, "User Not Found with country -> " + finalCountry));
     }
 
     @Override

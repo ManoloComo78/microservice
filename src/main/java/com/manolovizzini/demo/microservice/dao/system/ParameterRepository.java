@@ -12,6 +12,6 @@ import java.util.Optional;
  */
 public interface ParameterRepository extends BaseEntityPositionableEditableRepository<Parameter> {
 
-    Optional<Parameter> findByLanguageCode(String languageCode);
+    Optional<Parameter> findByLanguageTag(String languageTag);
     Optional<Parameter> findByCounter(int counter);
 }

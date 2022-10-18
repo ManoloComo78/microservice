@@ -36,7 +36,7 @@ public class User extends BaseEntityActiveablePositionableEditable {
     private String lastname;
 
     @Column(nullable = false)
-    private String nationality;
+    private String country;
 
     @Column(nullable = false)
     private LocalDate birthdate = LocalDate.now();
@@ -71,12 +71,12 @@ public class User extends BaseEntityActiveablePositionableEditable {
 
         User user = (User) o;
 
-        return new EqualsBuilder().appendSuper(super.equals(o)).append(getUsername(), user.getUsername()).append(getPassword(), user.getPassword()).append(getFirstname(), user.getFirstname()).append(getLastname(), user.getLastname()).append(getNationality(), user.getNationality()).append(getBirthdate(), user.getBirthdate()).append(getRoles(), user.getRoles()).append(getAccesses(), user.getAccesses()).isEquals();
+        return new EqualsBuilder().appendSuper(super.equals(o)).append(getUsername(), user.getUsername()).append(getPassword(), user.getPassword()).append(getFirstname(), user.getFirstname()).append(getLastname(), user.getLastname()).append(getCountry(), user.getCountry()).append(getBirthdate(), user.getBirthdate()).append(getRoles(), user.getRoles()).append(getAccesses(), user.getAccesses()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(getUsername()).append(getPassword()).append(getFirstname()).append(getLastname()).append(getNationality()).append(getBirthdate()).append(getRoles()).append(getAccesses()).toHashCode();
+        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(getUsername()).append(getPassword()).append(getFirstname()).append(getLastname()).append(getCountry()).append(getBirthdate()).append(getRoles()).append(getAccesses()).toHashCode();
     }
 }
 

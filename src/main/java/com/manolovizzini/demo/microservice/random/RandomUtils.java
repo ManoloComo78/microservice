@@ -43,14 +43,16 @@ public class RandomUtils extends CommonUtils {
         }
     }
 
-    public User generateUser(Faker faker, Set<Role> roles, Set<Access> accesses) {
+    public User generateUser(Parameter parameter, Faker faker, Set<Role> roles, Set<Access> accesses) {
+        Locale loc = Locale.forLanguageTag(parameter.getLanguageTag());
+
         User user = new User();
         Name nameFake = faker.name();
         user.setUsername(nameFake.username());
         user.setPassword("sa");
         user.setFirstname(nameFake.firstName());
         user.setLastname(nameFake.lastName());
-        user.setNationality(faker.nation().nationality());
+        user.setCountry(loc.getDisplayCountry());
         user.setBirthdate(faker.date().birthday().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate());
@@ -74,10 +76,10 @@ public class RandomUtils extends CommonUtils {
     }
 
     public Iterable<User> generateUsers(Parameter parameter, Set<Role> roles, Set<Access> accesses) {
-        Faker faker = new Faker(new Locale(parameter.getLanguageCode()), new Random(parameter.getCounter()));
+        Faker faker = new Faker(new Locale(parameter.getLanguageTag()), new Random(parameter.getCounter()));
         List<User> users = new ArrayList<>();
         for (int i = 0; i < parameter.getCounter(); i++) {
-            users.add(generateUser(faker, getRandomRoles(roles), accesses));
+            users.add(generateUser(parameter, faker, getRandomRoles(roles), accesses));
         }
         return users;
     }

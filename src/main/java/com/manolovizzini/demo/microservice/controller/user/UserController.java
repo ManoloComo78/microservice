@@ -37,9 +37,9 @@ public class UserController {
         return userService.findAll(pageRequest).map(userMapper::userToUserDTO);
     }
 
-    @RequestMapping("/reload/{languageCode}/{counter}")
-    public Iterable<UserDTO> findAll(@PathVariable String languageCode, @PathVariable int counter) {
-        return userMapper.usersToUserDTOs(userService.reload(languageCode, counter));
+    @RequestMapping("/reload/{languageTag}/{counter}")
+    public Iterable<UserDTO> findAll(@PathVariable String languageTag, @PathVariable int counter) {
+        return userMapper.usersToUserDTOs(userService.reload(languageTag, counter));
     }
 
     @GetMapping("/{id}")
@@ -52,9 +52,9 @@ public class UserController {
         return userMapper.userToUserDTO(userService.getByUsername(username));
     }
 
-    @GetMapping("/nationality/{nationality}")
-    public UserDTO retrieveByNationality(@PathVariable String nationality) throws Exception {
-        return userMapper.userToUserDTO(userService.getByNationality(nationality));
+    @GetMapping("/country/{country}")
+    public UserDTO retrieveByCountry(@PathVariable String country) throws Exception {
+        return userMapper.userToUserDTO(userService.getByCountry(country));
     }
 
     @DeleteMapping("/{id}")

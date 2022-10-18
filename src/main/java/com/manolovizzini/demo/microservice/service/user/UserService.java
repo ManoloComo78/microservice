@@ -19,13 +19,13 @@ public interface UserService {
 
     User getByUsername(String username) throws Exception;
 
-    User getByNationality(String nationality) throws Exception;
+    User getByCountry(String country) throws Exception;
 
     User save(User user) throws Exception;
 
     Iterable<User> findAll();
 
-    Iterable<User> reload(String languageCode, int counter);
+    Iterable<User> reload(String languageTag, int counter);
 
     Long count();
 

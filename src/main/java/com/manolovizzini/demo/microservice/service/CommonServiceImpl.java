@@ -11,7 +11,7 @@ import com.manolovizzini.demo.microservice.common.CommonUtils;
 public abstract class CommonServiceImpl extends CommonUtils implements CommonService {
     @Override
     public String getSystemLanguage() {
-        return env.getProperty("system.language");
+        return env.getProperty("system.languageTag");
     }
 
     @Override

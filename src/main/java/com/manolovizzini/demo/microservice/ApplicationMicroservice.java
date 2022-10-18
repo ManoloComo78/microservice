@@ -1,7 +1,5 @@
 package com.manolovizzini.demo.microservice;
 
-
-import com.manolovizzini.demo.microservice.common.CommonUtils;
 import com.manolovizzini.demo.microservice.dao.system.ParameterRepository;
 import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
@@ -51,7 +49,7 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             //System params
             Parameter parameter = new Parameter();
             parameter.setCounter(Integer.parseInt(env.getProperty("system.counter")));
-            parameter.setLanguageCode(env.getProperty("system.language"));
+            parameter.setLanguageTag(env.getProperty("system.languageTag"));
             parameterRepository.save(parameter);
 
             Set<Role> rolesSaved = new HashSet<>();
@@ -68,7 +66,7 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             userRepository.saveAll(randomUtils.generateUsers(parameter, rolesSaved, accessesSaved));
 
             logger.info("Users added:" + userRepository.findAll().spliterator().estimateSize());
-            logger.info("Language:" + parameter.getLanguageCode());
+            logger.info("Language:" + parameter.getLanguageTag());
         };
     }
 
