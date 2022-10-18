@@ -2,7 +2,6 @@ package com.manolovizzini.demo.microservice.dto.user;
 
 import com.manolovizzini.demo.microservice.ApplicationMicroservice;
 import com.manolovizzini.demo.microservice.domain.user.Role;
-import com.manolovizzini.demo.microservice.domain.user.RoleName;
 import com.manolovizzini.demo.microservice.domain.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
