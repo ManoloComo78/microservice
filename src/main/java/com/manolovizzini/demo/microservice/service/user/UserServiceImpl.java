@@ -1,8 +1,15 @@
 package com.manolovizzini.demo.microservice.service.user;
 
+import com.manolovizzini.demo.microservice.dao.system.ParameterRepository;
+import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
+import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
 import com.manolovizzini.demo.microservice.dao.user.UserRepository;
+import com.manolovizzini.demo.microservice.domain.system.Parameter;
+import com.manolovizzini.demo.microservice.domain.user.Access;
+import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.User;
 import com.manolovizzini.demo.microservice.exceptions.NotFoundException;
+import com.manolovizzini.demo.microservice.random.RandomUtils;
 import com.manolovizzini.demo.microservice.service.CommonServiceImpl;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
@@ -10,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -23,9 +28,15 @@ import java.util.Optional;
 public class UserServiceImpl extends CommonServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final AccessRepository accessRepository;
+    private final ParameterRepository parameterRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository, ParameterRepository parameterRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.accessRepository = accessRepository;
+        this.parameterRepository = parameterRepository;
     }
 
     @Override
@@ -36,6 +47,18 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
     @Override
     public Iterable<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Iterable<User> reload(String languageCode, int counter) {
+        RandomUtils randomUtils = new RandomUtils();
+        Parameter parameter = parameterRepository.findAll().iterator().next();
+        parameter.setLanguageCode(languageCode);
+        parameter.setCounter(counter);
+
+        userRepository.deleteAll();
+
+        return userRepository.saveAll(randomUtils.generateUsers(parameter,roleRepository.findAll(),accessRepository.findAll()));
     }
 
     @Override

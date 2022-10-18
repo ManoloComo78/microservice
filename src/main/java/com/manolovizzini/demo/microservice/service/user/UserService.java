@@ -25,6 +25,8 @@ public interface UserService {
 
     Iterable<User> findAll();
 
+    Iterable<User> reload(String languageCode, int counter);
+
     Long count();
 
     Page<User> findAll(Pageable pageRequest);

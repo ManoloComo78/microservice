@@ -37,6 +37,11 @@ public class UserController {
         return userService.findAll(pageRequest).map(userMapper::userToUserDTO);
     }
 
+    @RequestMapping("/reload/{languageCode}/{counter}")
+    public Iterable<UserDTO> findAll(@PathVariable String languageCode, @PathVariable int counter) {
+        return userMapper.usersToUserDTOs(userService.reload(languageCode, counter));
+    }
+
     @GetMapping("/{id}")
     public UserDTO retrieveById(@PathVariable long id) throws Exception {
         return userMapper.userToUserDTO(userService.getById(id));
