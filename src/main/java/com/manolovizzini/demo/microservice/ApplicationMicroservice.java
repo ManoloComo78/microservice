@@ -2,6 +2,7 @@ package com.manolovizzini.demo.microservice;
 
 
 import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 import com.manolovizzini.demo.microservice.dao.system.ParameterRepository;
 import com.manolovizzini.demo.microservice.dao.user.AccessRepository;
 import com.manolovizzini.demo.microservice.dao.user.RoleRepository;
@@ -19,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDateTime;
@@ -45,9 +47,12 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     }
 
     @Bean
-    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository, ParameterRepository parameterRepository) {
+    CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository, ParameterRepository parameterRepository, Environment env) {
         return args -> {
+            //System params
             Parameter parameter = new Parameter();
+            parameter.setCounter(Integer.parseInt(env.getProperty("system.counter")));
+            parameter.setLanguageCode(env.getProperty("system.language"));
             parameterRepository.save(parameter);
 
             Access accessNow = new Access(LocalDateTime.now(), "0.0.0.0");
@@ -67,11 +72,9 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                     .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
 
-            int counter = 5;//TODO dinamici
-            String language = "it-IT";//TODO dinamici
-            Faker randomFaker = new Faker(new Locale(language), new Random(counter));
-            for (int i = 0; i < counter; i++) {
-                userRepository.save(generateUser(randomFaker, language, counter, userRole, accessNow));
+           Faker randomFaker = new Faker(new Locale(parameter.getLanguageCode()), new Random(parameter.getCounter()));
+            for (int i = 0; i < parameter.getCounter(); i++) {
+                userRepository.save(generateUser(randomFaker, userRole, accessNow));
             }
 
             User userAdmin = userRepository.findAll().iterator().next();
@@ -81,16 +84,17 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             userRepository.save(userAdmin);
 
             logger.info("Users added:"+userRepository.findAll().spliterator().estimateSize());
-            logger.info("Language:"+language);
+            logger.info("Language:"+parameter.getLanguageCode());
         };
     }
 
-    public User generateUser(Faker randomFaker, String language, int counter, Role role, Access accessNow) {
+    public User generateUser(Faker randomFaker, Role role, Access accessNow) {
         User user = new User();
-        user.setUsername(randomFaker.name().username());
+        Name nameFake = randomFaker.name();
+        user.setUsername(nameFake.username());
         user.setPassword("sa");
-        user.setFirstname(randomFaker.name().firstName());
-        user.setLastname(randomFaker.name().lastName());
+        user.setFirstname(nameFake.firstName());
+        user.setLastname(nameFake.lastName());
         user.setNationality(randomFaker.nation().nationality());
         user.setBirthdate(randomFaker.date().birthday().toInstant()
                 .atZone(ZoneId.systemDefault())

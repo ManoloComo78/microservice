@@ -18,8 +18,8 @@ import javax.persistence.*;
 @Setter
 public class Parameter  extends BaseEntityActiveablePositionableEditable {
 
-    @Enumerated(EnumType.ORDINAL)
-    private LanguageCode languageCode = LanguageCode.en_US;
+    @Column(unique = true, nullable = false)
+    private String languageCode;
 
     @Column(nullable = false)
     private int counter = 5;

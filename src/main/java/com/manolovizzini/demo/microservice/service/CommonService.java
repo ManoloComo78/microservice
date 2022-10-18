@@ -7,5 +7,6 @@ package com.manolovizzini.demo.microservice.service;
  */
 public interface CommonService {
 
-
+    String getSystemLanguage();
+    String getSystemCounter();
 }

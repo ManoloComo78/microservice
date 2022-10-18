@@ -9,5 +9,13 @@ import com.manolovizzini.demo.microservice.common.CommonUtils;
  * <p>
  */
 public abstract class CommonServiceImpl extends CommonUtils implements CommonService {
+    @Override
+    public String getSystemLanguage() {
+        return env.getProperty("system.language");
+    }
 
+    @Override
+    public String getSystemCounter() {
+        return env.getProperty("system.counter");
+    }
 }

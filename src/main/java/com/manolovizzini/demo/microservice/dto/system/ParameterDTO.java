@@ -1,6 +1,5 @@
 package com.manolovizzini.demo.microservice.dto.system;
 
-import com.manolovizzini.demo.microservice.domain.system.LanguageCode;
 import com.manolovizzini.demo.microservice.dto.BaseDTOActiveablePositionableEditable;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ParameterDTO extends BaseDTOActiveablePositionableEditable {
-    private LanguageCode languageCode;
+    private String languageCode;
     private int counter;
 }

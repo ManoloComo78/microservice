@@ -1,9 +1,7 @@
 package com.manolovizzini.demo.microservice.dao.system;
 
 import com.manolovizzini.demo.microservice.dao.BaseEntityPositionableEditableRepository;
-import com.manolovizzini.demo.microservice.domain.system.LanguageCode;
 import com.manolovizzini.demo.microservice.domain.system.Parameter;
-import com.manolovizzini.demo.microservice.domain.user.User;
 
 import java.util.Optional;
 
@@ -14,6 +12,6 @@ import java.util.Optional;
  */
 public interface ParameterRepository extends BaseEntityPositionableEditableRepository<Parameter> {
 
-    Optional<Parameter> findByLanguageCode(LanguageCode languageCode);
+    Optional<Parameter> findByLanguageCode(String languageCode);
     Optional<Parameter> findByCounter(int counter);
 }
