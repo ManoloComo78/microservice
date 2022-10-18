@@ -1,6 +1,5 @@
 package com.manolovizzini.demo.microservice.dto.user;
 
-import com.manolovizzini.demo.microservice.domain.user.RoleName;
 import com.manolovizzini.demo.microservice.dto.BaseDTOActiveablePositionableEditable;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,7 @@ public class UserDTO extends BaseDTOActiveablePositionableEditable {
     private String firstname;
     private String lastname;
     private String nationality;
-    private RoleName roleName;
+    private String roles;
     private String lastAccess;
     private String birthdate;
 }

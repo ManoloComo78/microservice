@@ -39,7 +39,7 @@
                                             <th>firstname</th>
                                             <th>lastname</th>
                                             <th>nationality</th>
-                                            <th>role</th>
+                                            <th>roles</th>
                                             <th>lastAccess</th>
                                             <th>birthdate</th>
                                             <th>active</th>
@@ -58,7 +58,7 @@
                                             <td th:text="${user.firstname}" class="text-nowrap align-middle"></td>
                                             <td th:text="${user.lastname}" class="text-nowrap align-middle"></td>
                                             <td th:text="${user.nationality}" class="text-nowrap align-middle"></td>
-                                            <td th:text="${user.roleName}" class="text-nowrap align-middle"></td>
+                                            <td th:text="${user.roles}" class="text-nowrap align-middle"></td>
                                             <td th:text="${user.lastAccess}" class="text-nowrap align-middle"></td>
                                             <td class="text-nowrap align-middle"><span th:text="${user.birthdate}"></span></td>
                                             <td class="text-center align-middle"><i class="fa fa-fw text-secondary cursor-pointer " th:classappend="${user.active} ? 'fa-toggle-on' : 'fa-toggle-off'"></i></td>

@@ -6,8 +6,9 @@ package com.manolovizzini.demo.microservice.common;
  * <p>
  */
 public abstract class CommonUtils extends CommonPaths {
-
-
+    protected String removeBrackets(String value) {
+        return value.replaceAll("\\[(.*?)\\]", "$1");
+    }
 }
 
 

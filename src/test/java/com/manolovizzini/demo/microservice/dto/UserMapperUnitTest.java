@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,22 +26,26 @@ public class UserMapperUnitTest {
         Role roleAdmin = new Role();
         roleAdmin.setName(RoleName.ROLE_ADMIN);
         roleAdmin.setLevel(1);
+        Role roleUser = new Role();
+        roleUser.setName(RoleName.ROLE_USER);
+        roleUser.setLevel(2);
 
         User user = new User();
         user.setId(1L);
         user.setUsername("Pippo");
         user.getRoles().add(roleAdmin);
+        user.getRoles().add(roleUser);
         user.getAccesses().add(access);
         user.setBirthdate(birthdate);
 
 
         UserDTO userDto = UserMapper.INSTANCE.userToUserDTO(user);
-        String accessFormatted =  DateTimeFormatter.ofPattern(ApplicationMicroservice.dateTimeLocalePattern).format(user.getAccesses().iterator().next().getDateTime());
-        String birthdateFormatted =  DateTimeFormatter.ofPattern(ApplicationMicroservice.dateLocalePattern).format(user.getBirthdate());
+        String accessFormatted = DateTimeFormatter.ofPattern(ApplicationMicroservice.dateTimeLocalePattern).format(user.getAccesses().iterator().next().getDateTime());
+        String birthdateFormatted = DateTimeFormatter.ofPattern(ApplicationMicroservice.dateLocalePattern).format(user.getBirthdate());
 
         assertEquals(userDto.getId(), user.getId());
         assertEquals(userDto.getUsername(), user.getUsername());
-        assertEquals(userDto.getRoleName(), user.getRoles().iterator().next().getName());
+        assertEquals(userDto.getRoles(), "ROLE_ADMIN, ROLE_USER");
         assertEquals(userDto.getLastAccess(), accessFormatted);
         assertEquals(userDto.getBirthdate(), birthdateFormatted);
     }
