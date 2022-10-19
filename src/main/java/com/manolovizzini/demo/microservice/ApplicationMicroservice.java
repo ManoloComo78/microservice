@@ -8,7 +8,7 @@ import com.manolovizzini.demo.microservice.domain.system.Parameter;
 import com.manolovizzini.demo.microservice.domain.user.Access;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.RoleName;
-import com.manolovizzini.demo.microservice.random.RandomUtils;
+import com.manolovizzini.demo.microservice.common.EntityGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -44,7 +44,7 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
     @Bean
     CommandLineRunner runner(UserRepository userRepository, RoleRepository roleRepository, AccessRepository accessRepository, ParameterRepository parameterRepository, Environment env) {
         return args -> {
-            RandomUtils randomUtils = new RandomUtils();
+            EntityGenerator entityGenerator = new EntityGenerator();
 
             //System params
             Parameter parameter = new Parameter();
@@ -57,13 +57,13 @@ public class ApplicationMicroservice extends SpringBootServletInitializer {
             rolesSaved.add(roleRepository.save(new Role(RoleName.ROLE_USER, 10)));
 
             Set<Access> accessesSaved = new HashSet<>();
-            accessesSaved.add(accessRepository.save(randomUtils.newAccess()));
-            accessesSaved.add(accessRepository.save(randomUtils.newAccess()));
-            accessesSaved.add(accessRepository.save(randomUtils.newAccess()));
-            accessesSaved.add(accessRepository.save(randomUtils.newAccess()));
-            accessesSaved.add(accessRepository.save(randomUtils.newAccess()));
+            accessesSaved.add(accessRepository.save(entityGenerator.newAccess()));
+            accessesSaved.add(accessRepository.save(entityGenerator.newAccess()));
+            accessesSaved.add(accessRepository.save(entityGenerator.newAccess()));
+            accessesSaved.add(accessRepository.save(entityGenerator.newAccess()));
+            accessesSaved.add(accessRepository.save(entityGenerator.newAccess()));
 
-            userRepository.saveAll(randomUtils.generateUsers(parameter, rolesSaved, accessesSaved));
+            userRepository.saveAll(entityGenerator.generateUsers(parameter, rolesSaved, accessesSaved));
 
             logger.info("Users added:" + userRepository.findAll().spliterator().estimateSize());
             logger.info("Language:" + parameter.getLanguageTag());

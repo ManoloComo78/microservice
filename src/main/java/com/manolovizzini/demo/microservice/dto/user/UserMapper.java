@@ -4,7 +4,6 @@ import com.manolovizzini.demo.microservice.ApplicationMicroservice;
 import com.manolovizzini.demo.microservice.common.CommonUtils;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.User;
-import com.manolovizzini.demo.microservice.random.RandomUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

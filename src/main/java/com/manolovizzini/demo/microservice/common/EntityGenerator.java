@@ -1,14 +1,15 @@
-package com.manolovizzini.demo.microservice.random;
+package com.manolovizzini.demo.microservice.common;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import com.google.common.collect.Sets;
 import com.google.common.net.InetAddresses;
-import com.manolovizzini.demo.microservice.common.CommonUtils;
 import com.manolovizzini.demo.microservice.domain.system.Parameter;
 import com.manolovizzini.demo.microservice.domain.user.Access;
 import com.manolovizzini.demo.microservice.domain.user.Role;
 import com.manolovizzini.demo.microservice.domain.user.User;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -18,7 +19,15 @@ import java.util.*;
  * @author mviz - 18/10/2022
  * @version 1.0-SNAPSHOT
  */
-public class RandomUtils extends CommonUtils {
+@Getter
+@Setter
+public class EntityGenerator extends CommonUtils {
+
+    private RandomUtils randomUtils;
+
+    public EntityGenerator() {
+        this.randomUtils = new RandomUtils();
+    }
 
     /**
      * Gets random roles.
@@ -32,7 +41,7 @@ public class RandomUtils extends CommonUtils {
      */
     public Set<Role> getRandomRoles(Set<Role> roles) {
         int returnAll = roles.size() + 1;
-        int caseRandom = getRandomNumberInRange(1, returnAll);
+        int caseRandom = randomUtils.getRandomNumberInRange(1, returnAll);
         if (caseRandom == returnAll) {
             return roles;
         } else {
@@ -67,11 +76,11 @@ public class RandomUtils extends CommonUtils {
     }
 
     public LocalDateTime createRandomDate(int startYear, int endYear) {
-        int day = getRandomNumberInRange(1, 28);
-        int month = getRandomNumberInRange(1, 12);
-        int year = getRandomNumberInRange(startYear, endYear);
-        int hour = getRandomNumberInRange(0, 12);
-        int minute = getRandomNumberInRange(1, 59);
+        int day = randomUtils.getRandomNumberInRange(1, 28);
+        int month = randomUtils.getRandomNumberInRange(1, 12);
+        int year = randomUtils.getRandomNumberInRange(startYear, endYear);
+        int hour = randomUtils.getRandomNumberInRange(0, 12);
+        int minute = randomUtils.getRandomNumberInRange(1, 59);
         return LocalDateTime.of(year, month, day, hour, minute);
     }
 
@@ -88,7 +97,5 @@ public class RandomUtils extends CommonUtils {
         return generateUsers(parameter, Sets.newHashSet(roles), Sets.newHashSet(accesses));
     }
 
-    public int getRandomNumberInRange(int min, int max) {
-        return new Random().nextInt(max - min) + min;
-    }
+
 }
